@@ -2,6 +2,9 @@
 
 [문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/178871) 
 
+## 풀이 과정
+- 1트: callings 돌면서 players의 인덱스를 찾음 -> O(n^2)으로 시간초과
+- 2트: 인덱스를 저장하는 Map 사용해 인덱스를 찾는 시간을 O(1)로 수정 -> 성공
 ### 성능 요약
 
 메모리: 393 MB, 시간: 835.61 ms
