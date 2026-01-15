@@ -2,7 +2,6 @@ class Solution {
     public int solution(int number, int limit, int power) {
         int answer = 0;
         for(int x = 1; x <= number; x++) {
-            System.out.print(dividerCount(x));
             answer += dividerCount(x) > limit ? power : dividerCount(x);
         }
         return answer;
