@@ -7,19 +7,18 @@ class Solution {
         Deque<Integer> origin2 = new ArrayDeque<>(Arrays.stream(queue2).boxed().collect(Collectors.toList()));
         Deque<Integer> q1 = new ArrayDeque<>(Arrays.stream(queue1).boxed().collect(Collectors.toList()));
         Deque<Integer> q2 = new ArrayDeque<>(Arrays.stream(queue2).boxed().collect(Collectors.toList()));
-        long sum1 = Arrays.stream(queue1).sum();
-        long sum2 = Arrays.stream(queue2).sum();
+        
+        long sum1 = 0, sum2 = 0;
+        for (int x : queue1) sum1 += x;
+        for (int x : queue2) sum2 += x;
 
         int answer = 0;
-        int q1Count = 0;
-        int q2Count = 0;
         while (true) {
             boolean isPossible = true;
             if (sum1 < sum2) {
                 while (sum1 < sum2) {
                     int removed = q2.removeFirst();
                     if(!origin2.isEmpty()) origin2.removeFirst();
-                    q2Count++;
                     q1.addLast(removed);
                     sum1 += removed;
                     sum2 -= removed;
@@ -34,7 +33,6 @@ class Solution {
                 while (sum1 > sum2) {
                     int removed = q1.removeFirst();
                     if(!origin1.isEmpty()) origin1.removeFirst();
-                    q1Count++;
                     q2.addLast(removed);
                     sum1 -= removed;
                     sum2 += removed;
