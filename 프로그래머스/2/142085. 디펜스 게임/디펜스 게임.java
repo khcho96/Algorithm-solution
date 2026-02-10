@@ -1,31 +1,24 @@
 import java.util.*;
 
 class Solution {
-    public static int solution(int n, int k, int[] enemy) {
-        Map<Integer, Integer> map = new TreeMap<>(Comparator.reverseOrder());
+    public int solution(int n, int k, int[] enemy) {
+        PriorityQueue<Integer> queue = new PriorityQueue<>(Comparator.reverseOrder());
         int index = 0;
         while (true) {
             if (n - enemy[index] >= 0) {
-                map.put(enemy[index], map.getOrDefault(enemy[index], 0) + 1);
+                queue.add(enemy[index]);
                 n -= enemy[index++];
             } else if (k > 0) {
                 k--;
-                if (!map.isEmpty()) {
-                    for (Integer key : map.keySet()) {
-                        if (key >= enemy[index]) {
-                            n += key;
-                            map.put(key, map.get(key) - 1);
-                            if (map.get(key) == 0)
-                                map.remove(key);
-                        } else {
-                            index++;
-                        }
-                        break;
-                    }
+                if (!queue.isEmpty()) {
+                    if (queue.peek() >= enemy[index]) n += queue.poll();
+                    else index++;
                 } else {
                     index++;
                 }
-            } else break;
+            } else {
+                break;
+            }
 
             if (index == enemy.length) {
                 break;
