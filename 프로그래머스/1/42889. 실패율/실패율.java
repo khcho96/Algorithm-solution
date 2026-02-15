@@ -1,52 +1,44 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 class Solution {
+
     public int[] solution(int N, int[] stages) {
-        List<Stage> list = new ArrayList<>();
-        for (int i = 1; i <= N; i++) {
-            list.add(new Stage(i));
-        }
-
-        List<Integer> list1 = Arrays.stream(stages)
-                .boxed()
-                .sorted(Comparator.reverseOrder())
-                .collect(Collectors.toList());
-
-        int sum = 0;
-        for (int i = 0; i < list1.size();) {
-            int frequency = Collections.frequency(list1, list1.get(i));
-            sum += frequency;
-            if (list1.get(i) <= N) {
-                list.get(list1.get(i) - 1).setFailRate(frequency / (double) sum);
+        Arrays.sort(stages);
+        List<Level> levels = new ArrayList<>();
+        for (int i = 0; i <= N; i++) levels.add(new Level(i, 0));
+        int curLevel = stages[0];
+        int curLevelIndex = 0;
+        for (int i = 1; i < stages.length; i++) {
+            if (curLevel < stages[i]) {
+                levels.get(curLevel).faliRate = (i - curLevelIndex) / (double) (stages.length - curLevelIndex) * 100;
+                curLevel = stages[i];
+                curLevelIndex = i;
+            } else if (i == stages.length - 1) {
+                levels.get(curLevel).faliRate = 100.0;
             }
-            i += frequency;
+
+            if (curLevel > N) break;
         }
-        return list.stream()
-                .sorted(Comparator.comparingDouble(Stage::getFailRate).reversed().thenComparingInt(Stage::getStage))
-                .map(Stage::getStage)
-                .mapToInt(Integer::intValue)
-                .toArray();
+
+        levels.remove(0);
+        return levels.stream().sorted(Comparator.comparing(Level::getFaliRate).reversed()).map(Level::getLevel).mapToInt(Integer::intValue).toArray();
     }
-    
-    public class Stage {
-        public int stage;
-        public double failRate = 0;
 
-        Stage(int stage) {
-            this.stage = stage;
+    public class Level {
+        double faliRate;
+        int level;
+
+        public Level(int level, double faliRate) {
+            this.level = level;
+            this.faliRate = faliRate;
         }
 
-        public int getStage() {
-            return stage;
+        public int getLevel() {
+            return level;
         }
 
-        public double getFailRate() {
-            return failRate;
-        }
-
-        public void setFailRate(double failRate) {
-            this.failRate = failRate;
+        public double getFaliRate() {
+            return faliRate;
         }
     }
 }
