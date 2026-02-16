@@ -1,17 +1,19 @@
 class Solution {
-
     public long solution(int w, int h) {
-        int newW = Math.min(w, h);
-        int newH = Math.max(w, h);
-        double inclination = newH / (double) newW * -1;
+        long W = w, H = h;
+        long g = gcd(W, H);
+        return W * H - (W + H - g);
+    }
 
-        long answer = 0;
-        for (int x = 0; x < newW; x++) {
-            int y1 = (int) Math.ceil(inclination * (x - newW) + newH);
-            int y2 = (int) Math.floor(inclination * (x + 1 - newW) + newH);
-
-            answer += y1 - y2;
+    private long gcd(long a, long b) {
+        while (b != 0) {
+            long r = a % b;
+            a = b;
+            b = r;
         }
-        return (long) w * h - answer;
+        return a;
     }
 }
+
+// g = gcd(w, h) -> 유클리드 호제법
+// 못 쓰는 칸 = g * (w/g + h/g - 1) = w + h - g
