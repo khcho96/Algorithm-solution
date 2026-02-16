@@ -3,7 +3,7 @@ import java.util.Arrays;
 class Solution {
 
     public int solution(int[][] targets) {
-        Arrays.sort(targets, (o1, o2) -> o1[0] == o2[0] ? Integer.compare(o1[1], o2[1]) : Integer.compare(o1[0], o2[0]));
+        Arrays.sort(targets, (o1, o2) -> Integer.compare(o1[0], o2[0]));
 
         int answer = 0;
         int end = 0;
