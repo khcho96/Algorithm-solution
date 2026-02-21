@@ -37,6 +37,7 @@ class Solution {
                 pos = op_end;
             }
         }
+        
         return pos;
     }
     
