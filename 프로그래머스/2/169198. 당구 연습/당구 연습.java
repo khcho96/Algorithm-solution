@@ -40,6 +40,7 @@ class Solution {
 
             answer[i] = mins.stream().min(Integer::compareTo).orElse(0);
         }
+        
         return answer;
     }
 
