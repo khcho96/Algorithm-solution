@@ -23,7 +23,6 @@ class Solution {
             }
             map.put(end, map.get(end) + 1);
         }
-
         return map.values().stream().max(Integer::compareTo).orElse(0);
     }
 }
