@@ -1,20 +1,19 @@
 import java.util.*;
 
-class Solution
-{
+class Solution {
+
     public int solution(String s)
     {
-        Deque<String> stack = new ArrayDeque<>();
+        Deque<Character> stack = new ArrayDeque<>();
         for (int i = 0; i < s.length(); i++) {
-            String string = String.valueOf(s.charAt(i));
-
-            if (!stack.isEmpty() && stack.peekLast().equals(string)) {
-                stack.removeLast();
-            } else {
-                stack.addLast(string);
-            }
+            if (!stack.isEmpty() && stack.peekLast() == s.charAt(i)) stack.removeLast();
+            else stack.addLast(s.charAt(i));
         }
-    
-        return stack.isEmpty() ? 1 : 0;
+
+       return stack.isEmpty() ? 1 : 0;
+    }
+
+    public void main(String[] args) {
+        System.out.println(solution("acac"));
     }
 }
