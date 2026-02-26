@@ -12,8 +12,4 @@ class Solution {
 
        return stack.isEmpty() ? 1 : 0;
     }
-
-    public void main(String[] args) {
-        System.out.println(solution("acac"));
-    }
 }
