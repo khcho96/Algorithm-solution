@@ -40,8 +40,7 @@ class Solution {
     }
 
     private static int toMin(String s) {
-        String[] split = s.split(":");
-        return Integer.parseInt(split[0]) * 60 + Integer.parseInt(split[1]);
+        return Integer.parseInt(s.split(":")[0]) * 60 + Integer.parseInt(s.split(":")[1]);
     }
 
     public static class Work {
