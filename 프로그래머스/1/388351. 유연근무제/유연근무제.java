@@ -9,7 +9,6 @@ class Solution {
                 timelogs[i][7 - startday] = 0;
             }
         }
-
         int answer = schedules.length;
         for (int i = 0; i < timelogs.length; i++) {
             int endTime;
