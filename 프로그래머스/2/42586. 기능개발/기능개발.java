@@ -1,28 +1,27 @@
 import java.util.*;
 
 class Solution {
+
     public int[] solution(int[] progresses, int[] speeds) {
-        int[] day = new int[progresses.length];
+        List<Integer> answer = new ArrayList<>();
+
+        Deque<Integer> queue = new ArrayDeque<>();
         for (int i = 0; i < progresses.length; i++) {
-            day[i] = (100 - progresses[i]) / speeds[i];
-            if ((100 - progresses[i]) % speeds[i] > 0) {
-                day[i]++;
-            }
+            if ((100 - progresses[i]) % speeds[i] == 0) queue.addLast((100 - progresses[i]) / speeds[i]);
+            else queue.addLast((100 - progresses[i]) / speeds[i] + 1);
         }
 
-        List<Integer> count = new ArrayList<>();
-        int max = 0;
-        for (int i : day) {
-            if (max < i) {
-                max = i;
-                count.add(1);
-            } else {
-                count.set(count.size() - 1, count.get(count.size() - 1) + 1);
+        while (!queue.isEmpty()) {
+            int count = 1;
+
+            int first = queue.pollFirst();
+            while (!queue.isEmpty() && first >= queue.peekFirst()) {
+                count++;
+                queue.pollFirst();
             }
+            answer.add(count);
         }
-        
-        return count.stream()
-                .mapToInt(Integer::intValue)
-                .toArray();
+
+        return answer.stream().mapToInt(Integer::intValue).toArray();
     }
 }
