@@ -1,25 +1,18 @@
-import java.util.*;
-
 class Solution {
+
     public String solution(String[] cards1, String[] cards2, String[] goal) {
-        Deque<String> deque1 = new ArrayDeque<>(List.of(cards1));
-        Deque<String> deque2 = new ArrayDeque<>(List.of(cards2));
-        Deque<String> goals = new ArrayDeque<>(List.of(goal));
+        int i1 = 0, i2 = 0, gi = 0;
 
-        while (true) {
-            String target = goals.pollFirst();
-            
-            if (target == null) break;
-
-            if (!deque1.isEmpty() && deque1.peekFirst().equals(target)) {
-                deque1.removeFirst();
-            } else if (!deque2.isEmpty() && deque2.peekFirst().equals(target)) {
-                deque2.removeFirst();
-            } else {
-                return "No";
-            }
+        while (gi < goal.length) {
+            if (i1 < cards1.length && cards1[i1].equals(goal[gi])) {
+                i1++;
+                gi++;
+            } else if (i2 < cards2.length && cards2[i2].equals(goal[gi])) {
+                i2++;
+                gi++;
+            } else return "No";
         }
-        
+
         return "Yes";
     }
 }
