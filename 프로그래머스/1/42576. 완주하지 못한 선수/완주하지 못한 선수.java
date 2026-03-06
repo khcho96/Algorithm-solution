@@ -2,12 +2,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 class Solution {
+
     public String solution(String[] participant, String[] completion) {
-        List<String> p = Arrays.stream(participant).sorted().collect(Collectors.toList());
-        List<String> c = Arrays.stream(completion).sorted().collect(Collectors.toList());
-        for (int i = 0; i < c.size(); i++) {
-            if (!p.get(i).equals(c.get(i))) return p.get(i);
+        Map<String, Integer> map = new HashMap<>();
+        for (String s : participant) map.put(s, map.getOrDefault(s, 0) + 1);
+        for (String s : completion) {
+            map.put(s, map.getOrDefault(s, 0) - 1);
+            if (map.get(s) == 0) map.remove(s);
         }
-        return p.get(p.size() - 1);
+        
+        return map.keySet().stream().collect(Collectors.toList()).get(0);
     }
 }
