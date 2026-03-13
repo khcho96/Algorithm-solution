@@ -26,7 +26,6 @@ class Solution {
             sum += level >= diffs[i] ? times[i] : (long) (diffs[i] - level) * (times[i - 1] + times[i]) + times[i];
             if (sum > limit) return false;
         }
-        
         return true;
     }
 }
